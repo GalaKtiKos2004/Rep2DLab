@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd322c7796349b4a990c913b259fb43, type: 3}
+  m_Name: SmallSword
+  m_EditorClassIdentifier: 
+  Name: "\u041A\u0438\u043D\u0436\u0430\u043B \u0432\u043E\u0440\u0430"
+  Description: "\u041C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u043A\u0438\u043D\u0436\u0430\u043B
+    \u0432\u043E\u0440\u0430. +3 \u043A \u0443\u0440\u043E\u043D\u0443"
+  icon: {fileID: 21300000, guid: 5c08c5fc5e87cbc45a0fc88913cb4bc7, type: 3}
+  IsSword: 1
+  IsHelmet: 0
+  IsShield: 0
+  IsArmor: 0
+  Def: 0
+  Damage: 3
+  DropChance: 10

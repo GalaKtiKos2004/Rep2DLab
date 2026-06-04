@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd322c7796349b4a990c913b259fb43, type: 3}
+  m_Name: VikingHelmet
+  m_EditorClassIdentifier: 
+  Name: "\u0428\u043B\u0435\u043C \u0412\u0438\u043A\u0438\u043D\u0433\u043E\u0432"
+  Description: "\u0412\u0435\u043B\u0438\u043A\u0438\u0439 \u0432\u0438\u043A\u0438\u043D\u0433\u0441\u043A\u0438\u0439
+    \u0448\u043B\u0435\u043C. +8 \u043A \u0431\u0440\u043E\u043D\u0435"
+  icon: {fileID: 21300000, guid: 9204dd7b6cc9d344e8ad9b8bdea7dbbb, type: 3}
+  IsSword: 0
+  IsHelmet: 1
+  IsShield: 0
+  IsArmor: 0
+  Def: 8
+  Damage: 0
+  DropChance: 1
