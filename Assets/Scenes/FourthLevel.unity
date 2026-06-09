@@ -1206,9 +1206,7 @@ MonoBehaviour:
   - {fileID: 1769845135}
   - {fileID: 1878970415}
   - {fileID: 1340375290}
-  - {fileID: 0}
   - {fileID: 1752008971}
-  - {fileID: 0}
   - {fileID: 943697810}
   - {fileID: 1435564975}
   - {fileID: 1785140760}
@@ -1217,7 +1215,7 @@ MonoBehaviour:
   _equipment: {fileID: 853754450}
   _sceneController: {fileID: 1152148085}
   _delay: 3
-  _newSceneName: FifthLeve;
+  _newSceneName: FifthLevel
 --- !u!4 &430151677
 Transform:
   m_ObjectHideFlags: 0

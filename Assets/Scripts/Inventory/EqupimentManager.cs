@@ -25,13 +25,41 @@ public class EqupimentManager : MonoBehaviour
     /// <summary> Текущий шлем персонажа. </summary>
     public Item Helmet => _helmetSlot.ItemInSlot;
 
+    public bool IsEquipped(Item item)
+    {
+        return item != null && (item == Weapon || item == Armor || item == Shield || item == Helmet);
+    }
+
+    public IEnumerable<ItemSlot> GetOccupiedEquipmentSlots()
+    {
+        if (_weaponSlot.IsEmpty == false)
+        {
+            yield return _weaponSlot;
+        }
+
+        if (_armorSlot.IsEmpty == false)
+        {
+            yield return _armorSlot;
+        }
+
+        if (_shieldSlot.IsEmpty == false)
+        {
+            yield return _shieldSlot;
+        }
+
+        if (_helmetSlot.IsEmpty == false)
+        {
+            yield return _helmetSlot;
+        }
+    }
+
     /// <summary>
     /// Экипирует предмет, если он подходит для соответствующего слота.
     /// </summary>
     /// <param name="item">Предмет для экипировки.</param>
     public void EquipItem(Item item)
     {
-        if (item == null)
+        if (item == null || item.IsConsumable)
         {
             return;
         }

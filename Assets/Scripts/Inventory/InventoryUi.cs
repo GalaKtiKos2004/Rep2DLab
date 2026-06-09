@@ -13,6 +13,7 @@ public class InventoryUi : MonoBehaviour
 
     /// <summary> Ссылка на менеджер экипировки, который отвечает за снаряжение предметов. </summary>
     [SerializeField] private EqupimentManager _equipmentManager;
+    [SerializeField] private PlayerFighter _playerFighter;
 
     /// <summary> Кнопка использования предмета. </summary>
     [SerializeField] private Button _useButton;
@@ -36,6 +37,14 @@ public class InventoryUi : MonoBehaviour
     /// <summary>
     /// Подписывается на события кнопок при активации объекта.
     /// </summary>
+    private void Awake()
+    {
+        if (_playerFighter == null)
+        {
+            _playerFighter = FindObjectOfType<PlayerFighter>();
+        }
+    }
+
     private void OnEnable()
     {
         _useButton.onClick.AddListener(UseItem);
@@ -49,6 +58,11 @@ public class InventoryUi : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q) && _playerFighter != null)
+        {
+            _inventory.TryUseConsumable(_playerFighter);
+        }
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             _isActive = !_isActive;
@@ -67,7 +81,7 @@ public class InventoryUi : MonoBehaviour
     {
         _selectedItemSlot = item;
         _selectedItem = item.ItemInSlot;
-        _descriptionText.text = _selectedItem.Description;
+        _descriptionText.text = _selectedItem != null ? _selectedItem.Description : "";
     }
 
     /// <summary>
@@ -75,11 +89,25 @@ public class InventoryUi : MonoBehaviour
     /// </summary>
     private void UseItem()
     {
-        if (_selectedItem != null)
+        if (_selectedItem == null || _playerFighter == null)
         {
-            _inventory.RemoveItemFromSlot(_selectedItemSlot);
-            _equipmentManager.EquipItem(_selectedItem);
+            return;
         }
+
+        if (_selectedItem.IsConsumable)
+        {
+            if (_playerFighter.TryConsume(_selectedItem))
+            {
+                _inventory.RemoveItemFromSlot(_selectedItemSlot);
+                _selectedItem = null;
+                _descriptionText.text = "";
+            }
+
+            return;
+        }
+
+        _inventory.RemoveItemFromSlot(_selectedItemSlot);
+        _equipmentManager.EquipItem(_selectedItem);
     }
 
     /// <summary>

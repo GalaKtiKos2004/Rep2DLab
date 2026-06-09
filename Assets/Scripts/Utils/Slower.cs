@@ -8,7 +8,7 @@ public class Slower : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerSlower playerSlower))
         {
-            playerSlower.PlayerMover.SetSpeed(1 / _speedMultiplier);
+            playerSlower.PlayerMover.SetSpeedMultiplier(1f / _speedMultiplier);
         }
     }
 
@@ -16,7 +16,7 @@ public class Slower : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerSlower playerSlower))
         {
-            playerSlower.PlayerMover.SetSpeed(_speedMultiplier);
+            playerSlower.PlayerMover.SetSpeedMultiplier(1f);
         }
     }
 }

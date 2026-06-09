@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using DG.Tweening;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +24,19 @@ public class StartDialogue : MonoBehaviour
         _waitForSeconds = new WaitForSeconds(_wait);
     }
 
+    public void Configure(float textDuration, float wait)
+    {
+        _textDuration = textDuration;
+        _wait = wait;
+        _waitForSeconds = new WaitForSeconds(_wait);
+    }
+
+    public void SetDialogues(IReadOnlyList<string> dialogues)
+    {
+        _dialogues = new List<string>(dialogues);
+        _dialogueCount = 0;
+    }
+
     public void StartText()
     {
         PrintText();
@@ -37,6 +50,7 @@ public class StartDialogue : MonoBehaviour
             return;
         }
         
+        _text.DOKill();
         _text.text = "";
         _text.DOText(_dialogues[_dialogueCount++], _textDuration).SetEase(Ease.Linear);
         StartCoroutine(DialogueDelay());
@@ -44,6 +58,7 @@ public class StartDialogue : MonoBehaviour
 
     private IEnumerator DialogueDelay()
     {
+        yield return new WaitForSeconds(_textDuration);
         yield return _waitForSeconds;
         PrintText();
     }

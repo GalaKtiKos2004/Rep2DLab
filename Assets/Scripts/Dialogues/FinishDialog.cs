@@ -37,6 +37,7 @@ public class FinishDialog : MonoBehaviour
             return;
         }
         
+        _text.DOKill();
         _text.text = "";
         _text.DOText(_dialogues[_dialogueCount++], _textDuration).SetEase(Ease.Linear);
         StartCoroutine(DialogueDelay());
@@ -44,6 +45,7 @@ public class FinishDialog : MonoBehaviour
 
     private IEnumerator DialogueDelay()
     {
+        yield return new WaitForSeconds(_textDuration);
         yield return _waitForSeconds;
         PrintText();
     }

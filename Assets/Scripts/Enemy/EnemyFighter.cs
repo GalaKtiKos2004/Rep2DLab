@@ -14,6 +14,8 @@ public class EnemyFighter : Fighter
     /// Время, за которое враг исчезает после смерти.
     /// </summary>
     [SerializeField] private float _dyingTime;
+
+    [SerializeField] private int _goldDrop = 12;
     
     private SpriteRenderer _spriteRenderer;
     private bool _animationEnding = true;
@@ -66,6 +68,13 @@ public class EnemyFighter : Fighter
     protected override void OnDied()
     {
         Died?.Invoke();
+        QuestManager.Instance?.NotifyEnemyKilled();
+
+        if (_goldDrop > 0 && GameSession.Instance != null)
+        {
+            GameSession.Instance.AddGold(_goldDrop);
+        }
+
         _isDead = true;
         StartCoroutine(Dying());
     }

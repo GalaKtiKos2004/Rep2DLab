@@ -72,9 +72,14 @@ public class Chest : MonoBehaviour
     /// </summary>
     private void Open()
     {
+        if (_inventory == null)
+        {
+            return;
+        }
+
         Item item = GetRandomItem();
         
-        if (item != null && _inventory != null)
+        if (item != null)
         {
             _inventory.AddItem(item);
             Debug.Log($"Игрок получил {item.Name} из сундука!");
@@ -92,7 +97,17 @@ public class Chest : MonoBehaviour
         // Подсчитываем общий вес всех предметов
         foreach (var loot in _items)
         {
+            if (loot == null)
+            {
+                continue;
+            }
+
             totalWeight += loot.DropChance;
+        }
+
+        if (totalWeight <= 0f)
+        {
+            return null;
         }
         
         float randomValue = UnityEngine.Random.Range(0f, totalWeight);
@@ -101,6 +116,11 @@ public class Chest : MonoBehaviour
         // Выбираем предмет на основе случайного значения
         foreach (var loot in _items)
         {
+            if (loot == null)
+            {
+                continue;
+            }
+
             currentSum += loot.DropChance;
             if (randomValue <= currentSum)
             {

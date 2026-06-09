@@ -12,7 +12,11 @@ public class PlayerMover : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     private Vector2 _movementInput;
+    private Vector2? _dashVelocity;
+    private float _baseMoveSpeed;
     private bool _isDied = false;
+
+    public bool MovementLocked { get; set; }
 
     // Стандартные масштабы для поворота спрайта
     private readonly Vector2 _defaultScale = new Vector2(1, 1);
@@ -25,6 +29,7 @@ public class PlayerMover : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerFighter = GetComponent<PlayerFighter>();
 
+        _baseMoveSpeed = _moveSpeed;
         _rigidbody.gravityScale = 0f;
         // Изначально блокируем вращение
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -72,10 +77,33 @@ public class PlayerMover : MonoBehaviour
             transform.localScale = _flippedScale;
     }
 
+    public void SetDashVelocity(Vector2 velocity)
+    {
+        _dashVelocity = velocity;
+    }
+
+    public void ClearDashVelocity()
+    {
+        _dashVelocity = null;
+    }
+
     private void FixedUpdate()
     {
         if (_isDied)
             return;
+
+        if (_dashVelocity.HasValue)
+        {
+            _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            _rigidbody.velocity = _dashVelocity.Value;
+            return;
+        }
+
+        if (MovementLocked)
+        {
+            _rigidbody.velocity = Vector2.zero;
+            return;
+        }
 
         if (_movementInput == Vector2.zero)
         {
@@ -91,8 +119,8 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    public void SetSpeed(float multiplier)
+    public void SetSpeedMultiplier(float multiplier)
     {
-        _moveSpeed *= multiplier;
+        _moveSpeed = _baseMoveSpeed * multiplier;
     }
 }

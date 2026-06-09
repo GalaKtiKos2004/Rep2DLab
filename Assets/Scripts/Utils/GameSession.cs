@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,16 @@ public class GameSession : MonoBehaviour
 
     /// <summary> Список предметов, сохраненных между сценами. </summary>
     private IReadOnlyList<Item> _equipItems;
+
+    private List<QuestProgressData> _questProgress = new List<QuestProgressData>();
+
+    private const int StartingGold = 50;
+
+    private int _gold = StartingGold;
+
+    public int Gold => _gold;
+
+    public event Action<int> GoldChanged;
 
     private void Awake()
     {
@@ -38,6 +49,11 @@ public class GameSession : MonoBehaviour
         _items = inventory.Items;
         List<Item> equipItems = new List<Item>(new Item[] { equipment.Weapon, equipment.Armor, equipment.Helmet, equipment.Shield });
         _equipItems = equipItems;
+
+        if (QuestManager.Instance != null)
+        {
+            _questProgress = new List<QuestProgressData>(QuestManager.Instance.GetSaveData());
+        }
     }
 
     /// <summary>
@@ -53,5 +69,38 @@ public class GameSession : MonoBehaviour
             newInventory.LoadFromOtherInventory(_items);
             equipment.Load(_equipItems);
         }
+
+        if (QuestManager.Instance != null && _questProgress != null)
+        {
+            QuestManager.Instance.LoadSaveData(_questProgress);
+        }
+    }
+
+    public bool CanAfford(int price)
+    {
+        return price > 0 && _gold >= price;
+    }
+
+    public bool TrySpendGold(int price)
+    {
+        if (CanAfford(price) == false)
+        {
+            return false;
+        }
+
+        _gold -= price;
+        GoldChanged?.Invoke(_gold);
+        return true;
+    }
+
+    public void AddGold(int amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        _gold += amount;
+        GoldChanged?.Invoke(_gold);
     }
 }

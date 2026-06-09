@@ -18,6 +18,40 @@ public class Inventory : MonoBehaviour
     /// <summary> Список предметов в инвентаре (только для чтения). </summary>
     public IReadOnlyList<Item> Items => _items;
 
+    /// <summary> Слоты инвентаря (только для чтения). </summary>
+    public IReadOnlyList<ItemSlot> ItemSlots => _itemSlots;
+
+    public bool HasFreeSlot()
+    {
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.IsEmpty)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void SellItemFromSlot(ItemSlot slot)
+    {
+        if (slot == null || slot.IsEmpty)
+        {
+            return;
+        }
+
+        Item item = slot.ItemInSlot;
+
+        if (_items.Contains(item))
+        {
+            RemoveItemFromSlot(slot);
+            return;
+        }
+
+        slot.Clear();
+    }
+
     /// <summary>
     /// Добавляет предмет в инвентарь, если есть место.
     /// </summary>
@@ -79,5 +113,29 @@ public class Inventory : MonoBehaviour
         {
             AddItem(item);
         }
+    }
+
+    /// <summary>
+    /// Использует первое найденное зелье из инвентаря.
+    /// </summary>
+    public bool TryUseConsumable(PlayerFighter player)
+    {
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.IsEmpty || slot.ItemInSlot.IsConsumable == false)
+            {
+                continue;
+            }
+
+            Item item = slot.ItemInSlot;
+
+            if (player.TryConsume(item))
+            {
+                RemoveItemFromSlot(slot);
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -23,11 +23,16 @@ public class PlayerFighter : Fighter
     /// <summary> Задержка перед перезапуском уровня после смерти. </summary>
     [SerializeField] private float _delay = 3f;
 
+    [SerializeField] private float _blockDamageMultiplier = 0.25f;
+
     private WaitForSeconds _waitForSeconds;
     private bool _canPress = true;
+    private bool _isInvulnerable;
 
     public event Action Attacked;
     public event Action Died;
+
+    public bool IsBlocking { get; private set; }
 
     private void Awake()
     {
@@ -36,6 +41,11 @@ public class PlayerFighter : Fighter
 
     private void Update()
     {
+        IsBlocking = IsDead == false
+                     && _isInvulnerable == false
+                     && _equipmentManager.Shield != null
+                     && Input.GetKey(KeyCode.LeftControl);
+
         if (IsCooldown || _canPress == false)
         {
             return;
@@ -46,6 +56,37 @@ public class PlayerFighter : Fighter
             Attacked?.Invoke();
             _canPress = false;
         }
+    }
+
+    public void SetInvulnerable(bool value)
+    {
+        _isInvulnerable = value;
+    }
+
+    public bool TryConsume(Item item)
+    {
+        if (item == null || item.IsConsumable == false || IsDead)
+        {
+            return false;
+        }
+
+        Health.Heal(item.HealAmount);
+        return true;
+    }
+
+    protected override float GetModifiedDamage(float damage)
+    {
+        if (_isInvulnerable)
+        {
+            return 0f;
+        }
+
+        if (IsBlocking)
+        {
+            return damage * _blockDamageMultiplier;
+        }
+
+        return damage;
     }
 
     protected override void OnDied()

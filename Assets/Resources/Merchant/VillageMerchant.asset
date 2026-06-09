@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b8c7d6e5f4433221100ffeeddccbba, type: 3}
+  m_Name: VillageMerchant
+  m_EditorClassIdentifier: 
+  MerchantName: "\u0411\u043E\u0440\u0438\u0441-\u043A\u0443\u0437\u043D\u0435\u0446"
+  MerchantSprite: {fileID: 424204446, guid: ec46fac1bd59b164cabbe8ed61589605, type: 3}
+  Wares:
+  - {fileID: 11400000, guid: c4d8e2f19a6b4075b3e1f9c82d5a6e70, type: 2}
+  - {fileID: 11400000, guid: 74d0d2c0501642f409b7cf341837f254, type: 2}
+  - {fileID: 11400000, guid: 8647d4e93105d324ab77863e19bd5470, type: 2}
+  - {fileID: 11400000, guid: 5064aa807d2d5374eb233aac17063237, type: 2}
+  - {fileID: 11400000, guid: 605e0a9528f745c4c926f5ed171500e6, type: 2}
+  LegendaryWares:
+  - {fileID: 11400000, guid: 5919148ec5aeb25488592aa53d8c0ced, type: 2}
+  - {fileID: 11400000, guid: bfb1442ae8305cd468dd3b38333c1faf, type: 2}
+  - {fileID: 11400000, guid: 2912216409f497e41a57ab3760031131, type: 2}
+  - {fileID: 11400000, guid: cc38bc16519cd954fa430a680efe7a4a, type: 2}
+  LevelSpawns:
+  - SceneName: FirstLevel
+    SpawnPosition: {x: -0.72, y: 0.08, z: 0}
+    LegendaryBuyQuestId: clear_outskirts
+  - SceneName: SecondLevel
+    SpawnPosition: {x: -0.4, y: 0.08, z: 0}
+    LegendaryBuyQuestId: forest_patrol
+  - SceneName: ThirdLevel
+    SpawnPosition: {x: 0.08, y: -0.08, z: 0}
+    LegendaryBuyQuestId: tower_ruins
+  - SceneName: FourthLevel
+    SpawnPosition: {x: -0.56, y: 0.08, z: 0}
+    LegendaryBuyQuestId: 
+  - SceneName: FifthLevel
+    SpawnPosition: {x: -0.56, y: 0.08, z: 0}
+    LegendaryBuyQuestId: 
+  LegendaryBuyQuestId: clear_outskirts

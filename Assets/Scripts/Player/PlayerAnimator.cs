@@ -32,7 +32,6 @@ public class PlayerAnimator : MonoBehaviour
         _playerMover.Moved += OnMoved;
         _playerFighter.Attacked += OnAttack;
         _playerFighter.Died += OnDied;
-        _levelManager.Won += OnWon;
     }
 
     private void OnDisable()
@@ -40,7 +39,24 @@ public class PlayerAnimator : MonoBehaviour
         _playerMover.Moved -= OnMoved;
         _playerFighter.Attacked -= OnAttack;
         _playerFighter.Died -= OnDied;
-        _levelManager.Won -= OnWon;
+
+        if (_levelManager != null)
+        {
+            _levelManager.Won -= OnWon;
+        }
+    }
+
+    private void Start()
+    {
+        if (_levelManager == null)
+        {
+            _levelManager = FindObjectOfType<LevelManager>();
+        }
+
+        if (_levelManager != null)
+        {
+            _levelManager.Won += OnWon;
+        }
     }
 
     /// <summary>

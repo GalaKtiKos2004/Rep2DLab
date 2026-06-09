@@ -170,6 +170,7 @@ MonoBehaviour:
   _trigger: {fileID: 7664018934396912045}
   _inventory: {fileID: 0}
   _items:
+  - {fileID: 11400000, guid: c4d8e2f19a6b4075b3e1f9c82d5a6e70, type: 2}
   - {fileID: 11400000, guid: ed80061dcd5986c47924be336f6bdafd, type: 2}
   - {fileID: 11400000, guid: 3cd6cc17b4e1f5a43a4fa7521e9afec9, type: 2}
   - {fileID: 11400000, guid: 363bc2b7ce9ef90479e8c11fa590337f, type: 2}

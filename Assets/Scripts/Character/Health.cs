@@ -38,6 +38,11 @@ public class Health
     /// <param name="damage">Количество урона.</param>
     public void TakeDamage(float damage)
     {
+        if (damage <= 0)
+        {
+            return;
+        }
+
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _maxHealth);
         Changed?.Invoke(_currentHealth, _maxHealth);
         
@@ -45,5 +50,19 @@ public class Health
         {
             Died?.Invoke();
         }
+    }
+
+    /// <summary>
+    /// Восстанавливает здоровье, не превышая максимум.
+    /// </summary>
+    public void Heal(float amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+        Changed?.Invoke(_currentHealth, _maxHealth);
     }
 }

@@ -1338,17 +1338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemys:
   - {fileID: 1711262494}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 943697810}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   _inventory: {fileID: 853754451}
   _equipment: {fileID: 853754450}
   _sceneController: {fileID: 1152148085}

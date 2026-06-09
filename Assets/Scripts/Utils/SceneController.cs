@@ -17,11 +17,26 @@ public class SceneController : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
+
+            if (GetComponent<StoryDirector>() == null)
+            {
+                gameObject.AddComponent<StoryDirector>();
+            }
+
+            if (GetComponent<QuestManager>() == null)
+            {
+                gameObject.AddComponent<QuestManager>();
+            }
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        InitializeSceneSystems(SceneManager.GetActiveScene());
     }
 
     /// <summary>
@@ -42,6 +57,11 @@ public class SceneController : MonoBehaviour
     /// <param name="mode">Режим загрузки сцены.</param>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        InitializeSceneSystems(scene);
+    }
+
+    private void InitializeSceneSystems(Scene scene)
+    {
         Inventory newInventory = FindObjectOfType<Inventory>();
         EqupimentManager equipment = FindObjectOfType<EqupimentManager>();
 
@@ -49,5 +69,8 @@ public class SceneController : MonoBehaviour
         {
             GameSession.Instance.LoadInventory(newInventory, equipment);
         }
+
+        GoldHud.EnsureExists();
+        MerchantSpawner.SpawnForScene(scene.name);
     }
 }

@@ -23,6 +23,7 @@ MonoBehaviour:
   IsHelmet: 0
   IsShield: 0
   IsArmor: 0
+  IsLegendary: 1
   Def: 0
   Damage: 11
   DropChance: 0.2

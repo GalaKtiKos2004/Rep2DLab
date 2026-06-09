@@ -106,9 +106,18 @@ public abstract class Fighter : MonoBehaviour
     /// <param name="damage">Полученный урон.</param>
     private void TakeDamage(float damage)
     {
+        float modifiedDamage = GetModifiedDamage(damage);
         float totalDefense = GetTotalDefense();
-        float finalDamage = Mathf.Max(damage - totalDefense, 0);
+        float finalDamage = Mathf.Max(modifiedDamage - totalDefense, 0);
         _health.TakeDamage(finalDamage);
+    }
+
+    /// <summary>
+    /// Модификатор входящего урона (блок, неуязвимость и т.д.).
+    /// </summary>
+    protected virtual float GetModifiedDamage(float damage)
+    {
+        return damage;
     }
 
     /// <summary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Управляет уровнем, отслеживает уничтожение всех врагов и переход на следующий уровень.
@@ -32,23 +33,49 @@ public class LevelManager : MonoBehaviour
     /// <summary> Количество уничтоженных врагов. </summary>
     private int _diedCount = 0;
 
+    /// <summary> Количество врагов, за которых отслеживается победа. </summary>
+    private int _totalEnemies = 0;
+
     /// <summary> Событие, вызываемое при победе на уровне. </summary>
     public event Action Won;
 
     private void OnEnable()
     {
         _wait = new WaitForSeconds(_delay);
+        _diedCount = 0;
+        _totalEnemies = 0;
 
-        foreach (var enemy in _enemys)
+        if (_enemys == null)
         {
+            return;
+        }
+
+        foreach (EnemyFighter enemy in _enemys)
+        {
+            if (enemy == null)
+            {
+                continue;
+            }
+
+            _totalEnemies++;
             enemy.Died += OnDied;
         }
     }
 
     private void OnDisable()
     {
-        foreach (var enemy in _enemys)
+        if (_enemys == null)
         {
+            return;
+        }
+
+        foreach (EnemyFighter enemy in _enemys)
+        {
+            if (enemy == null)
+            {
+                continue;
+            }
+
             enemy.Died -= OnDied;
         }
     }
@@ -60,7 +87,7 @@ public class LevelManager : MonoBehaviour
     {
         _diedCount++;
 
-        if (_diedCount == _enemys.Count)
+        if (_diedCount == _totalEnemies)
         {
             Won?.Invoke();
             StartCoroutine(NewLevelDelay());
@@ -73,6 +100,14 @@ public class LevelManager : MonoBehaviour
     private IEnumerator NewLevelDelay()
     {
         yield return _wait;
+
+        if (StoryDirector.Instance != null)
+        {
+            bool outroFinished = false;
+            string sceneName = SceneManager.GetActiveScene().name;
+            StoryDirector.Instance.PlayOutro(sceneName, () => outroFinished = true);
+            yield return new WaitUntil(() => outroFinished);
+        }
 
         _sceneController.LoadScene(_newSceneName, _inventory, _equipment);
     }

@@ -884,7 +884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8624307416325725859, guid: fe9b0983b733c8d4b8c52bbefbe3c21d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.18841495
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8624307416325725859, guid: fe9b0983b733c8d4b8c52bbefbe3c21d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1963,7 +1963,7 @@ Tilemap:
       - {fileID: 144775625, guid: 4891a0bae05d66c40bd205eecabbab6b, type: 3}
       - {fileID: 984104539, guid: b41101f2d3d1dd84c904f408ff127f8f, type: 3}
       - {fileID: -1481306638, guid: 704b35af381930345a711415f8855bb6, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -13, y: -1, z: 0}
@@ -2041,7 +2041,7 @@ Tilemap:
       - {fileID: 967839415, guid: 4891a0bae05d66c40bd205eecabbab6b, type: 3}
       - {fileID: 1667129875, guid: b41101f2d3d1dd84c904f408ff127f8f, type: 3}
       - {fileID: 1609000693, guid: 704b35af381930345a711415f8855bb6, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -12, y: 0, z: 0}
@@ -2054,7 +2054,7 @@ Tilemap:
       - {fileID: -756552330, guid: 4891a0bae05d66c40bd205eecabbab6b, type: 3}
       - {fileID: 1640931211, guid: b41101f2d3d1dd84c904f408ff127f8f, type: 3}
       - {fileID: -451255096, guid: 704b35af381930345a711415f8855bb6, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -7674,6 +7674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 853754451}
   _equipmentManager: {fileID: 853754450}
+  _playerFighter: {fileID: 0}
   _useButton: {fileID: 868342603}
   _dropButton: {fileID: 1775055000}
   _descriptionText: {fileID: 140572661}
